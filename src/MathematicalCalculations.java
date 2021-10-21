@@ -3,48 +3,39 @@ import java.util.Stack;
 
 public class MathematicalCalculations {
 
-    public static double calculation(String s) {
-        ArrayList<String> arrayList = ParsingString.parsing(s);
-        Stack<Double> stack = new Stack<>();
+    public static double calculation(String string) throws Exception {
 
-        for (String string : arrayList) {
-            if (isNumber(string)) {
-                stack.push(Double.parseDouble(string));
+        ArrayList<String> listReversePolishNotation = ParsingString.parsing(string);
+
+        Stack<Double> stackForCalculations = new Stack<>();
+
+        for (String element : listReversePolishNotation) {
+            if (CheckStringForNumber.isNumber(element)) {
+                stackForCalculations.push(Double.parseDouble(element));
             } else {
-                double tmp1 = stack.pop();
-                double tmp2 = stack.pop();
+                double valueOne = stackForCalculations.pop();
+                double valueTwo = stackForCalculations.pop();
 
-                switch (string) {
+                switch (element) {
                     case "+":
-                        stack.push(tmp1 + tmp2);
+                        stackForCalculations.push(valueOne + valueTwo);
                         break;
                     case "-":
-                        stack.push(tmp2 - tmp1);
+                        stackForCalculations.push(valueTwo - valueOne);
                         break;
                     case "*":
-                        stack.push(tmp1 * tmp2);
+                        stackForCalculations.push(valueOne * valueTwo);
                         break;
                     case "/":
-                        try {
-                            stack.push(tmp2 / tmp1);
-                        } catch (ArithmeticException e) {
-                            System.out.println("Недопустимая операция, деление на ноль");
+                        if (valueOne == 0) {
+                            throw new ArithmeticException("Недопустимая операция, деление на ноль");
+                        } else {
+                            stackForCalculations.push(valueTwo / valueOne);
                         }
-
-
                         break;
                 }
             }
         }
-        return stack.pop();
-    }
-
-    public static boolean isNumber(String string) {
-        try {
-            Double.parseDouble(string);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+        return stackForCalculations.pop();
     }
 }
