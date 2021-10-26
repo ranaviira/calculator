@@ -7,6 +7,10 @@ public class ParsingString {
 
     public static ArrayList<String> parsing(String string) throws Exception {
 
+        if(string.isEmpty()){
+            throw new Exception("Пустая строка");
+        }
+
         if (!(Validation.checkForValidCharacters(string))) {
             throw new IllegalArgumentException("В выражении содержатся недопустимые символы");
         }

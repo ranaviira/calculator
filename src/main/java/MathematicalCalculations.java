@@ -28,7 +28,7 @@ public class MathematicalCalculations {
                         break;
                     case "/":
                         if (valueOne == 0) {
-                            throw new ArithmeticException("Недопустимая операция, деление на ноль");
+                             throw new ArithmeticException("Недопустимая операция, деление на ноль");
                         } else {
                             stackForCalculations.push(valueTwo / valueOne);
                         }

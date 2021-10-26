@@ -6,9 +6,7 @@ public class WorkWithConsole {
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите выражение через пробел: ");
-        String addPoint = scanner.nextLine();
-
-        System.out.println("Результат " + MathematicalCalculations.calculation(addPoint));
+        System.out.println("Результат " + MathematicalCalculations.calculation(scanner.nextLine()));
     }
 
 }
